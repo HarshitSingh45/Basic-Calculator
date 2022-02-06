@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <!-- <link rel="stylesheet" href="calculator_style.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="cal-container">
+        <div id="display"></div>
+        <div id="ip-container">
+            <div style="text-align: center;">
+                <div class="box fn" onclick="reset()">AC</div>
+                <div class="box fn" onclick="signInd()">+/-</div>
+                <div class="box fn" onclick="funand('%')">%</div>
+                <div class="box fn"  onclick="funand('/')">/</div>
+            </div>
+            <div style="text-align: center;">
+                <div class="box" onclick="funop1(1)">1</div>
+                <div class="box" onclick="funop1(2)">2</div>
+                <div class="box" onclick="funop1(3)">3</div>
+                <div class="box fn" onclick="funand('*')">x</div>
+            </div>
+            <div style="text-align: center;">
+                <div class="box" onclick="funop1(4)">4</div>
+                <div class="box" onclick="funop1(5)">5</div>
+                <div class="box" onclick="funop1(6)">6</div>
+                <div class="box fn"  onclick="funand('-')">-</div>
+            </div>
+            <div style="text-align: center;">
+                <div class="box" onclick="funop1(7)">7</div>
+                <div class="box" onclick="funop1(8)">8</div>
+                <div class="box" onclick="funop1(9)">9</div>
+                <div class="box fn"  onclick="funand('+')">+</div>
+            </div><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+            <div style="text-align: center;">
+                <div class="box" onclick="funop1(0)">0</div>
+                <div class="box" onclick="funop1('.')">.</div>
+                <div class="box" onclick="cut()" style="padding-top: 5px;"><i class="fas fa-backspace"></i></div>
+                <div class="box fn" onclick="result()">=</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var op1=0;
+        var op2=0;
+        var oprand=false;
+        var op="";
+        var sign=true;
+        function signInd(){
+            if(oprand==false){
+                op1=op1*(-1);
+                dis.innerHTML=op1;
+            }else{
+                op2=op2*(-1);
+                dis.innerHTML=op2;
+            }
+        }
+        var dis=document.getElementById("display");
+        function funop1(num){
+            if(oprand==false){
+                dis.innerHTML+=num;
+                op1=dis.innerHTML;
+            }else{
+                dis.innerHTML+=num;
+                op2=dis.innerHTML;
+            } 
+        }
+        function funand(opp){
+            oprand=true;
+            op=opp;
+            dis.innerHTML=" ";
+        }
+        function result(){
+            dis.innerHTML=" ";
+            op1=parseFloat(op1);
+            op2=parseFloat(op2);
+            switch (op){
+                case '+':
+                    op1= op1+op2;
+                    break;
+                case '-':
+                    op1 = op1-op2;
+                    break;
+                case '*':
+                    op1 = op1*op2;
+                    break;
+                case '/':
+                    op1 = op1/op2;
+                    break;
+                case '%':
+                    op1 = op1%op2;
+                    break;
+                default:
+                    break;
+            }
+            
+            dis.innerHTML=op1;
+            oprand=false;
+            op2=0;
+
+        }
+        function cut(){
+            if(oprand==false){
+                op1=op1.slice(0,-1);
+                dis.innerHTML=op1;
+            }else{
+                op2=op2.slice(0,-1);
+                dis.innerHTML=op2;
+            }
+        }
+        function reset(){
+            op1=0;
+            op2=0;
+            dis.innerHTML="";
+            oprand=false;
+        }
+    </script>
+</body>
+</html>
